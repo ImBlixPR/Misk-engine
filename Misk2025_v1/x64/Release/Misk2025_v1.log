@@ -1,0 +1,12 @@
+﻿  Dummy.cpp
+  Log.cpp
+  backend.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,9): warning C4005: 'APIENTRY': macro redefinition
+  (compiling source file 'src/opengl/backend/backend.cpp')
+      C:\Users\almak\OneDrive\Documents\Visual Studio 2022\Projects\Misk2025_v1\Misk2025_v1\vendor\glad\include\glad\glad.h(32,9):
+      see previous definition of 'APIENTRY'
+  
+C:\Users\almak\OneDrive\Documents\Visual Studio 2022\Projects\Misk2025_v1\Misk2025_v1\src\opengl\backend\backend.cpp(76,13): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\almak\OneDrive\Documents\Visual Studio 2022\Projects\Misk2025_v1\Misk2025_v1\src\opengl\backend\backend.cpp(77,14): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+  glad.c
+  Misk2025_v1.vcxproj -> C:\Users\almak\OneDrive\Documents\Visual Studio 2022\Projects\Misk2025_v1\x64\Release\Misk2025_v1.lib

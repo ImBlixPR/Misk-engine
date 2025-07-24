@@ -1,0 +1,233 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Dist|x64">
+      <Configuration>Dist</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{08858B40-743A-0436-FD2E-FE0C69E3FA39}</ProjectGuid>
+    <IgnoreWarnCompileDuplicatedFilename>true</IgnoreWarnCompileDuplicatedFilename>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>Misk2025_V1</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>..\bin\Debug-windows\Misk2025_V1\</OutDir>
+    <IntDir>..\bin-int\Debug-windows\Misk2025_V1\</IntDir>
+    <TargetName>Misk2025_V1</TargetName>
+    <TargetExt>.exe</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>..\bin\Release-windows\Misk2025_V1\</OutDir>
+    <IntDir>..\bin-int\Release-windows\Misk2025_V1\</IntDir>
+    <TargetName>Misk2025_V1</TargetName>
+    <TargetExt>.exe</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>..\bin\Dist-windows\Misk2025_V1\</OutDir>
+    <IntDir>..\bin-int\Dist-windows\Misk2025_V1\</IntDir>
+    <TargetName>Misk2025_V1</TargetName>
+    <TargetExt>.exe</TargetExt>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>mkpch.h</PrecompiledHeaderFile>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>MK_PLATFORM_WINDOWS;GLFW_INCLUDE_NONE;MK_ENABLE_ASSERTS;MK_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>vendor\spdlog\include;engine;vendor\GLFW\include;vendor\Glad\include;vendor\glm;vendor\STB\include;vendor\tinyexr;vendor\assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <Optimization>Disabled</Optimization>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <ExternalWarningLevel>Level3</ExternalWarningLevel>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>opengl32.lib;assimp-vc143-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>vendor\GLFW\lib-vc2022;vendor\assimp\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+    <PostBuildEvent>
+      <Command>IF EXIST "$(SolutionDir)\Misk2025_V1\vendor\dll\assimp-vc143-mt.dll"\ (xcopy /Q /E /Y /I "$(SolutionDir)\Misk2025_V1\vendor\dll\assimp-vc143-mt.dll" "..\bin\Debug-windows\Misk2025_V1" &gt; nul) ELSE (xcopy /Q /Y /I "$(SolutionDir)\Misk2025_V1\vendor\dll\assimp-vc143-mt.dll" "..\bin\Debug-windows\Misk2025_V1" &gt; nul)</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>mkpch.h</PrecompiledHeaderFile>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>MK_PLATFORM_WINDOWS;GLFW_INCLUDE_NONE;MK_ENABLE_ASSERTS;MK_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>vendor\spdlog\include;engine;vendor\GLFW\include;vendor\Glad\include;vendor\glm;vendor\STB\include;vendor\tinyexr;vendor\assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <Optimization>Full</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <ExternalWarningLevel>Level3</ExternalWarningLevel>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>opengl32.lib;assimp-vc143-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>vendor\GLFW\lib-vc2022;vendor\assimp\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+    <PostBuildEvent>
+      <Command>IF EXIST "$(SolutionDir)\Misk2025_V1\vendor\dll\assimp-vc143-mt.dll"\ (xcopy /Q /E /Y /I "$(SolutionDir)\Misk2025_V1\vendor\dll\assimp-vc143-mt.dll" "..\bin\Release-windows\Misk2025_V1" &gt; nul) ELSE (xcopy /Q /Y /I "$(SolutionDir)\Misk2025_V1\vendor\dll\assimp-vc143-mt.dll" "..\bin\Release-windows\Misk2025_V1" &gt; nul)</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>mkpch.h</PrecompiledHeaderFile>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>MK_PLATFORM_WINDOWS;GLFW_INCLUDE_NONE;MK_ENABLE_ASSERTS;MK_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>vendor\spdlog\include;engine;vendor\GLFW\include;vendor\Glad\include;vendor\glm;vendor\STB\include;vendor\tinyexr;vendor\assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <Optimization>Full</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <ExternalWarningLevel>Level3</ExternalWarningLevel>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>opengl32.lib;assimp-vc143-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>vendor\GLFW\lib-vc2022;vendor\assimp\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+    <PostBuildEvent>
+      <Command>IF EXIST "$(SolutionDir)\Misk2025_V1\vendor\dll\assimp-vc143-mt.dll"\ (xcopy /Q /E /Y /I "$(SolutionDir)\Misk2025_V1\vendor\dll\assimp-vc143-mt.dll" "..\bin\Dist-windows\Misk2025_V1" &gt; nul) ELSE (xcopy /Q /Y /I "$(SolutionDir)\Misk2025_V1\vendor\dll\assimp-vc143-mt.dll" "..\bin\Dist-windows\Misk2025_V1" &gt; nul)</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="engine\API\opengl\opengl_backend.h" />
+    <ClInclude Include="engine\Misk.h" />
+    <ClInclude Include="engine\assets\asset_manager.h" />
+    <ClInclude Include="engine\core\Log.h" />
+    <ClInclude Include="engine\core\application.h" />
+    <ClInclude Include="engine\core\backend.h" />
+    <ClInclude Include="engine\core\define.h" />
+    <ClInclude Include="engine\core\input.h" />
+    <ClInclude Include="engine\core\key_code.h" />
+    <ClInclude Include="engine\core\misk_enum.h" />
+    <ClInclude Include="engine\core\misk_type.h" />
+    <ClInclude Include="engine\core\util.h" />
+    <ClInclude Include="engine\misk_export.h" />
+    <ClInclude Include="engine\mkpch.h" />
+    <ClInclude Include="engine\renderer\enums.h" />
+    <ClInclude Include="engine\renderer\opengl\opengl_detached_mesh.h" />
+    <ClInclude Include="engine\renderer\opengl\opengl_frame_buffer.h" />
+    <ClInclude Include="engine\renderer\opengl\opengl_renderer.h" />
+    <ClInclude Include="engine\renderer\opengl\opengl_shader.h" />
+    <ClInclude Include="engine\renderer\opengl\opengl_texture.h" />
+    <ClInclude Include="engine\renderer\render_data.h" />
+    <ClInclude Include="engine\renderer\renderer.h" />
+    <ClInclude Include="engine\renderer\renderer_common.h" />
+    <ClInclude Include="engine\renderer\renderer_util.h" />
+    <ClInclude Include="engine\renderer\render_object.h" />
+    <ClInclude Include="engine\renderer\shader.h" />
+    <ClInclude Include="engine\renderer\text_blitter.h" />
+    <ClInclude Include="engine\renderer\texture.h" />
+    <ClInclude Include="engine\renderer\types\mesh.h" />
+    <ClInclude Include="engine\renderer\types\model.h" />
+    <ClInclude Include="engine\scene\base_scene.h" />
+    <ClInclude Include="engine\scene\default_scene.h" />
+    <ClInclude Include="engine\scene\empty_scene.h" />
+    <ClInclude Include="engine\scene\scene_manager.h" />
+    <ClInclude Include="engine\types\camera.h" />
+    <ClInclude Include="engine\types\types.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="engine\API\opengl\opengl_backend.cpp" />
+    <ClCompile Include="engine\assets\asset_manager.cpp" />
+    <ClCompile Include="engine\core\Log.cpp" />
+    <ClCompile Include="engine\core\application.cpp" />
+    <ClCompile Include="engine\core\backend.cpp" />
+    <ClCompile Include="engine\core\input.cpp" />
+    <ClCompile Include="engine\main.cpp" />
+    <ClCompile Include="engine\mkpch.cpp">
+      <PrecompiledHeader>Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="engine\renderer\opengl\opengl_renderer.cpp" />
+    <ClCompile Include="engine\renderer\opengl\opengl_shader.cpp" />
+    <ClCompile Include="engine\renderer\opengl\opengl_texture.cpp" />
+    <ClCompile Include="engine\renderer\renderer.cpp" />
+    <ClCompile Include="engine\renderer\render_object.cpp" />
+    <ClCompile Include="engine\renderer\text_blitter.cpp" />
+    <ClCompile Include="engine\renderer\texture.cpp" />
+    <ClCompile Include="engine\scene\default_scene.cpp" />
+    <ClCompile Include="engine\scene\empty_scene.cpp" />
+    <ClCompile Include="engine\scene\scene_manager.cpp" />
+    <ClCompile Include="engine\types\camera.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="vendor\GLFW\GLFW.vcxproj">
+      <Project>{154B857C-0182-860D-AA6E-6C109684020F}</Project>
+    </ProjectReference>
+    <ProjectReference Include="vendor\Glad\Glad.vcxproj">
+      <Project>{BDD6857C-A90D-870D-52FA-6C103E10030F}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\shaders\OpenGL\GL_forword.vert" />
+    <None Include="res\shaders\OpenGL\GL_forword.frag" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

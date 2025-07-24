@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="API">
+      <UniqueIdentifier>{FFD1870B-6BDB-877C-F456-9E7C605F937C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="API\opengl">
+      <UniqueIdentifier>{B37E072F-9F36-497C-083E-22D8F414E46C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets">
+      <UniqueIdentifier>{583885F2-44DA-AFC8-2D95-C31C19D63619}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="core">
+      <UniqueIdentifier>{4E40957C-3A77-960D-E363-7C10CF79120F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="renderer">
+      <UniqueIdentifier>{9C6AA017-8837-FB22-B150-E9CA9D7C30B1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="renderer\opengl">
+      <UniqueIdentifier>{B0A4E4AA-1C30-526F-2541-D563914BAE6F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="renderer\types">
+      <UniqueIdentifier>{60C35E4B-4C91-5251-3525-C37721922EB6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="types">
+      <UniqueIdentifier>{5A5E7610-C672-9EC1-8FF4-4121FBC79AF2}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="engine\API\opengl\opengl_backend.h">
+      <Filter>API\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\Misk.h" />
+    <ClInclude Include="engine\assets\asset_manager.h">
+      <Filter>assets</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\core\Log.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\core\application.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\core\backend.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\core\define.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\core\input.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\core\key_code.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\core\misk_enum.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\core\misk_type.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\core\util.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\misk_export.h" />
+    <ClInclude Include="engine\mkpch.h" />
+    <ClInclude Include="engine\renderer\enums.h">
+      <Filter>renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\renderer\opengl\opengl_detached_mesh.h">
+      <Filter>renderer\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\renderer\opengl\opengl_frame_buffer.h">
+      <Filter>renderer\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\renderer\opengl\opengl_renderer.h">
+      <Filter>renderer\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\renderer\opengl\opengl_shader.h">
+      <Filter>renderer\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\renderer\opengl\opengl_texture.h">
+      <Filter>renderer\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\renderer\render_data.h">
+      <Filter>renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\renderer\renderer.h">
+      <Filter>renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\renderer\renderer_common.h">
+      <Filter>renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\renderer\renderer_util.h">
+      <Filter>renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\renderer\shader.h">
+      <Filter>renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\renderer\text_blitter.h">
+      <Filter>renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\renderer\texture.h">
+      <Filter>renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\renderer\types\mesh.h">
+      <Filter>renderer\types</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\renderer\types\model.h">
+      <Filter>renderer\types</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\types\types.h">
+      <Filter>types</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\types\camera.h" />
+    <ClInclude Include="engine\renderer\render_object.h" />
+    <ClInclude Include="engine\scene\scene_manager.h" />
+    <ClInclude Include="engine\scene\base_scene.h" />
+    <ClInclude Include="engine\scene\default_scene.h" />
+    <ClInclude Include="engine\scene\empty_scene.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="engine\API\opengl\opengl_backend.cpp">
+      <Filter>API\opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\assets\asset_manager.cpp">
+      <Filter>assets</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\core\Log.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\core\application.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\core\backend.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\core\input.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\main.cpp" />
+    <ClCompile Include="engine\mkpch.cpp" />
+    <ClCompile Include="engine\renderer\opengl\opengl_renderer.cpp">
+      <Filter>renderer\opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\renderer\opengl\opengl_shader.cpp">
+      <Filter>renderer\opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\renderer\opengl\opengl_texture.cpp">
+      <Filter>renderer\opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\renderer\renderer.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\renderer\text_blitter.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\renderer\texture.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\types\camera.cpp" />
+    <ClCompile Include="engine\renderer\render_object.cpp" />
+    <ClCompile Include="engine\scene\scene_manager.cpp" />
+    <ClCompile Include="engine\scene\default_scene.cpp" />
+    <ClCompile Include="engine\scene\empty_scene.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\shaders\OpenGL\GL_forword.vert" />
+    <None Include="res\shaders\OpenGL\GL_forword.frag" />
+  </ItemGroup>
+</Project>

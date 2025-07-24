@@ -1,0 +1,12 @@
+#Folder
+
+.vs/
+bin/
+bin-int/
+
+!vendor/bin/premake/premake5.exe
+
+
+#File
+
+*.user
