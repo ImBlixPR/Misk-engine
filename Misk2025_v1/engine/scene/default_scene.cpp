@@ -19,11 +19,11 @@ namespace scene {
 		Transform transform;
 		transform.position = glm::vec3(0.0f, 0.0f, 0.0f);
 		transform.rotation = glm::vec3(0.0f, 0.0f, 0.0f);
-		transform.scale = glm::vec3(0.08f, 0.08f, 0.08f);  // Scale down Sponza
-		this->add_scene_3d_object("sponza.obj", transform);
+		transform.scale = glm::vec3(500.00f, 500.0f, 500.0f);  // Scale down Sponza
+		this->add_scene_3d_object("UpFacingPLane", transform);
 
 		transform.scale = glm::vec3(5.0f, 5.0f, 5.0f);  // Scale up monkey
-		this->add_scene_3d_object("monkey.obj", transform);
+		//this->add_scene_3d_object("monkey.obj", transform);
 
 
         // Offset forward from the camera so object is visible

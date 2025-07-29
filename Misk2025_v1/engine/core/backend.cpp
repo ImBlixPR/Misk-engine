@@ -56,6 +56,19 @@ namespace backend {
 		float frame_time = 0.0f;
 	} engine_stats;
 
+	// Multi-window support
+	struct WindowInfo {
+		GLFWwindow* window;
+		std::string title;
+		int width, height;
+		bool is_main_window;
+		bool is_focused;
+		bool should_close_on_escape;
+	};
+
+	static std::vector<WindowInfo> g_windows;
+	static GLFWwindow* g_focused_window = nullptr;
+
 	//=========================================================================================================
 
 	/*
@@ -292,6 +305,223 @@ namespace backend {
 	float get_fps() { return engine_stats.current_fps; }
 	float get_frame_time() { return engine_stats.frame_time; }
 	//=========================================================================================================
+
+
+	/*
+	
+		                                                                                                                                                            
+		                                                                                                                                                            
+		`7MMM.     ,MMF'`7MMF'   `7MF'`7MMF'      `7MMF'MMP""MM""YMM `7MMF'     A     `7MF'`7MMF'`7MN.   `7MF'`7MM"""Yb.     .g8""8q.`7MMF'     A     `7MF'.M"""bgd 
+		  MMMb    dPMM    MM       M    MM          MM  P'   MM   `7   `MA     ,MA     ,V    MM    MMN.    M    MM    `Yb. .dP'    `YM.`MA     ,MA     ,V ,MI    "Y 
+		  M YM   ,M MM    MM       M    MM          MM       MM         VM:   ,VVM:   ,V     MM    M YMb   M    MM     `Mb dM'      `MM VM:   ,VVM:   ,V  `MMb.     
+		  M  Mb  M' MM    MM       M    MM          MM       MM          MM.  M' MM.  M'     MM    M  `MN. M    MM      MM MM        MM  MM.  M' MM.  M'    `YMMNq. 
+		  M  YM.P'  MM    MM       M    MM      ,   MM       MM mmmmm    `MM A'  `MM A'      MM    M   `MM.M    MM     ,MP MM.      ,MP  `MM A'  `MM A'   .     `MM 
+		  M  `YM'   MM    YM.     ,M    MM     ,M   MM       MM           :MM;    :MM;       MM    M     YMM    MM    ,dP' `Mb.    ,dP'   :MM;    :MM;    Mb     dM 
+		.JML. `'  .JMML.   `bmmmmd"'  .JMMmmmmMMM .JMML.   .JMML.          VF      VF      .JMML..JML.    YM  .JMMmmmdP'     `"bmmd"'      VF      VF     P"Ybmmd"  
+		                                                                                                                                                            
+		                                                                                                                                                            	
+	*/
+
+	// Window focus callback
+	static void window_focus_callback(GLFWwindow* window, int focused) {
+		// Update focus status for all windows
+		for (auto& window_info : g_windows) {
+			if (window_info.window == window) {
+				window_info.is_focused = (focused == GLFW_TRUE);
+				if (focused == GLFW_TRUE) {
+					g_focused_window = window;
+					MK_CORE_INFO("Window '{}' gained focus", window_info.title);
+				}
+				else {
+					MK_CORE_INFO("Window '{}' lost focus", window_info.title);
+				}
+				break;
+			}
+		}
+
+		// Handle main window focus
+		if (window == g_window) {
+			if (focused == GLFW_TRUE) {
+				g_focused_window = g_window;
+				MK_CORE_INFO("Main window gained focus");
+			}
+			else {
+				MK_CORE_INFO("Main window lost focus");
+			}
+		}
+	}
+
+
+
+	static void window_key_callback(GLFWwindow* window, int key, int scancode, int action, int mods) {
+		if (action == GLFW_PRESS) {
+			// Handle ESC key for focused window
+			if (key == GLFW_KEY_ESCAPE) {
+				// Find the window info
+				for (const auto& window_info : g_windows) {
+					if (window_info.window == window && window_info.should_close_on_escape) {
+						MK_CORE_INFO("ESC pressed - closing window: {}", window_info.title);
+						glfwSetWindowShouldClose(window, GLFW_TRUE);
+						return;
+					}
+				}
+
+				// Handle main window ESC (optional - you might not want this)
+				if (window == g_window) {
+					MK_CORE_INFO("ESC pressed on main window");
+					// Uncomment if you want ESC to close main window:
+					// glfwSetWindowShouldClose(window, GLFW_TRUE);
+				}
+			}
+		}
+	}
+
+	GLFWwindow* create_secondary_window(const std::string& title, int width, int height, bool close_on_escape) {
+		// Share context with main window for resource sharing
+		GLFWwindow* new_window = glfwCreateWindow(width, height, title.c_str(), nullptr, g_window);
+
+		if (!new_window) {
+			MK_CORE_ERROR("Failed to create secondary window: {}", title);
+			return nullptr;
+		}
+
+		// Store window info
+		WindowInfo info;
+		info.window = new_window;
+		info.title = title;
+		info.width = width;
+		info.height = height;
+		info.is_main_window = false;
+		info.is_focused = false;
+		info.should_close_on_escape = close_on_escape;
+		g_windows.push_back(info);
+
+		// Set up callbacks for this window
+		glfwSetWindowFocusCallback(new_window, window_focus_callback);
+		glfwSetKeyCallback(new_window, window_key_callback);
+
+		// Position offset from main window
+		int main_x, main_y;
+		glfwGetWindowPos(g_window, &main_x, &main_y);
+		glfwSetWindowPos(new_window, main_x + 50, main_y + 50);
+
+		MK_CORE_INFO("Created secondary window: {} ({}x{})", title, width, height);
+
+		glfwShowWindow(new_window);
+		return new_window;
+	}
+
+	void destroy_secondary_window(GLFWwindow* window) {
+		if (!window) return;
+
+		// Remove from windows list
+		g_windows.erase(
+			std::remove_if(g_windows.begin(), g_windows.end(),
+				[window](const WindowInfo& info) { return info.window == window; }),
+			g_windows.end()
+		);
+
+		// Clear focused window if it's being destroyed
+		if (g_focused_window == window) {
+			g_focused_window = g_window; // Default back to main window
+		}
+
+		glfwDestroyWindow(window);
+	}
+
+	void make_window_current(GLFWwindow* window) {
+		if (window) {
+			glfwMakeContextCurrent(window);
+		}
+	}
+
+	bool is_window_open(GLFWwindow* window) {
+		return window && !glfwWindowShouldClose(window);
+	}
+
+	void clear_window_with_context(GLFWwindow* window, float r, float g, float b, float a) {
+		if (!window) return;
+
+		glfwMakeContextCurrent(window);
+
+		int width, height;
+		glfwGetFramebufferSize(window, &width, &height);
+		glViewport(0, 0, width, height);
+
+		glClearColor(r, g, b, a);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	}
+
+	void swap_window_buffers(GLFWwindow* window) {
+		if (window) {
+			glfwSwapBuffers(window);
+		}
+	}
+
+	GLFWwindow* get_focused_window() {
+		return g_focused_window;
+	}
+
+	bool is_window_focused(GLFWwindow* window) {
+		if (window == g_window) {
+			return g_focused_window == g_window;
+		}
+
+		for (const auto& window_info : g_windows) {
+			if (window_info.window == window) {
+				return window_info.is_focused;
+			}
+		}
+		return false;
+	}
+
+	void set_window_focus_callbacks() {
+		// Set callback for main window
+		glfwSetWindowFocusCallback(g_window, window_focus_callback);
+		glfwSetKeyCallback(g_window, window_key_callback);
+
+		// Initialize main window as focused
+		g_focused_window = g_window;
+	}
+
+	bool handle_focused_window_input() {
+		GLFWwindow* focused = get_focused_window();
+		if (!focused) return false;
+
+		// You can add more focused window input handling here
+		// For now, the key callback handles ESC automatically
+
+		return true;
+	}
+
+	// Modified window polling for all windows
+	void poll_all_windows() {
+		glfwPollEvents();
+
+		// Handle any additional per-window logic
+		handle_focused_window_input();
+
+		// Clean up closed windows
+		auto it = g_windows.begin();
+		while (it != g_windows.end()) {
+			if (glfwWindowShouldClose(it->window)) {
+				MK_CORE_INFO("Window '{}' marked for closure", it->title);
+				GLFWwindow* window_to_destroy = it->window;
+				it = g_windows.erase(it);
+
+				// Clear focused window if it's being destroyed
+				if (g_focused_window == window_to_destroy) {
+					g_focused_window = g_window;
+				}
+
+				glfwDestroyWindow(window_to_destroy);
+			}
+			else {
+				++it;
+			}
+		}
+	}
+
 }
 
 
