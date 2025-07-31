@@ -4,11 +4,12 @@
 
 #include "key_code.h"
 
+struct GLFWwindow;
 
 namespace input {
 
 	void init();
-	void update();
+	void update(GLFWwindow* window);
 	bool key_pressed(unsigned int keycode);
 	bool key_down(unsigned int keycode);
 	float get_mouse_offset_x();

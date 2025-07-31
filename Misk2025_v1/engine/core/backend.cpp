@@ -184,7 +184,7 @@ namespace backend {
 
 	void update_subsystem()
 	{
-		input::update();
+		input::update(g_focused_window);
 		float time = (float)glfwGetTime();
 		g_timestep = time - g_last_time;
 		g_last_time = time;

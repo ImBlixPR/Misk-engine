@@ -62,10 +62,10 @@ namespace input
         g_mouse_x = x;
         g_mouse_y = y;
     }
-    void update()
+    void update(GLFWwindow* window)
     {
         double x, y;
-        glfwGetCursorPos(g_window, &x, &y);
+        glfwGetCursorPos(window, &x, &y);
         g_mouse_offset_x = x - g_mouse_x;
         g_mouse_offset_y = -1.0*(y - g_mouse_y);
         g_mouse_x = x;
@@ -77,7 +77,7 @@ namespace input
 
             // to spam the key
             // down
-            if (glfwGetKey(g_window, i) == GLFW_PRESS)
+            if (glfwGetKey(window, i) == GLFW_PRESS)
                 g_key_down[i] = true;
             else
                 g_key_down[i] = false;
@@ -95,7 +95,7 @@ namespace input
         // Mouse button handling
         for (int i = 0; i < 8; i++) {
             // Current state
-            bool isDown = glfwGetMouseButton(g_window, i) == GLFW_PRESS;
+            bool isDown = glfwGetMouseButton(window, i) == GLFW_PRESS;
 
             // Button just pressed this frame (down now, but not last frame)
             g_mouse_button_pressed[i] = isDown && !g_mouse_button_down_last_frame[i];
